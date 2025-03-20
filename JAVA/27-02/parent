@@ -1,0 +1,6 @@
+class parent{
+    System.out.println("Parent Class");
+}
+class Child extends parent{
+    
+}
