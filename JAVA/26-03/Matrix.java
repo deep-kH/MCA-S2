@@ -3,11 +3,10 @@ import java.util.Scanner;
 class Matrix {
     int a, b, array[][];
 
-    Matrix(int a, int b) {
+    Matrix(int a, int b, Scanner sc) {
         this.a = a;
         this.b = b;
         this.array = new int[a][b];
-        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < a; i++) {
             for (int j = 0; j < b; j++) {
                 System.out.printf("array[%d][%d] : ", i, j);
@@ -32,17 +31,39 @@ class Matrix {
         }
     }
 
-    static void multiplication(Matrix arr1, Matrix arr2){
-        if ( arr1.b != arr2.a){
-            System.out.println("The number of columns in first array should be equal to number of rows in second array!!");
+    static void multiplication(Matrix arr1, Matrix arr2) {
+        if (arr1.b != arr2.a) {
+            System.out.println(
+                    "The number of columns in first array should be equal to number of rows in second array!!");
             return;
-        }
-        else{
-            for (int i = 0; i<arr1.a; i++){
-                for (int j = 0; j<arr1.b; j++){
-                    
+        } else {
+            for (int i = 0; i < arr1.a; i++) {
+                for (int j = 0; j < arr2.b; j++) {
+                    int sum = 0;
+                    for (int k = 0; k < arr1.b; k++) {
+                        sum += arr1.array[i][k] * arr2.array[k][j];
+                    }
+                    System.out.print(sum + " ");
                 }
+                System.out.println();
             }
+        }
+    }
+
+    static void transpose(Matrix x) {
+        System.out.println("The original array is: ");
+        for (int i = 0; i < x.a; i++) {
+            for (int j = 0; j < x.b; j++) {
+                System.out.print(x.array[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("Its transpose is: ");
+        for (int i = 0; i < x.b; i++) {
+            for (int j = 0; j < x.a; j++) {
+                System.out.print(x.array[j][i] + " ");
+            }
+            System.out.println();
         }
     }
 
@@ -55,17 +76,22 @@ class Matrix {
             switch (ch) {
                 case 1:
                     System.out.print("Enter the size of the first array(a b): ");
-                    Matrix arr1 = new Matrix(sc.nextInt(), sc.nextInt());
+                    Matrix add1 = new Matrix(sc.nextInt(), sc.nextInt(), sc);
                     System.out.print("Enter the size of the second array(a b): ");
-                    Matrix arr2 = new Matrix(sc.nextInt(), sc.nextInt());
-                    Matrix.addition(arr1, arr2);
+                    Matrix add2 = new Matrix(sc.nextInt(), sc.nextInt(), sc);
+                    Matrix.addition(add1, add2);
                     break;
                 case 2:
                     System.out.print("Enter the size of the first array(a b): ");
-                    Matrix arr1 = new Matrix(sc.nextInt(), sc.nextInt());
+                    Matrix mul1 = new Matrix(sc.nextInt(), sc.nextInt(), sc);
                     System.out.print("Enter the size of the second array(a b): ");
-                    Matrix arr2 = new Matrix(sc.nextInt(), sc.nextInt());
-                    Matrix.multiplication(arr1, arr2);
+                    Matrix mul2 = new Matrix(sc.nextInt(), sc.nextInt(), sc);
+                    Matrix.multiplication(mul1, mul2);
+                    break;
+                case 3:
+                    System.out.print("Enter the size of the array(a b): ");
+                    Matrix transpose = new Matrix(sc.nextInt(), sc.nextInt(), sc);
+                    Matrix.transpose(transpose);
                     break;
                 case 4:
                     System.out.println("Exiting...");
